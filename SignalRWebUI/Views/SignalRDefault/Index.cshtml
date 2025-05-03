@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<h1>Index</h1>
+
+<!-- jQuery (Google CDN üzerinden) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Bundle (Bootstrap resmi CDN üzerinden) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Kendi site.js dosyan varsa yine localde -->
+<script src="/js/site.js" asp-append-version="true"></script>
+
+<!-- SignalR (Microsoft'un resmi CDN'inden) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.6/signalr.min.js"></script>
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <script type="text/javascript">
+                        $(document).ready(() => {
+
+                            var connection = new signalR.HubConnectionBuilder()
+                                .withUrl("https://localhost:7277/signalrhub", {
+                                    transport: signalR.HttpTransportType.WebSockets,
+                                    withCredentials: true
+                                })
+                                .build();
+                            $("#connstatus").text(connection.state);
+
+
+                            connection.start().then(() => {
+                                $("#connstatus").text(connection.state);
+                                connection.invoke("SendCategoryCount");
+                            }).catch((err) => { console.log(err) });
+
+                            connection.on("ReceiveCategoryCount", (value) => {
+                                $("#categorycount").text(value);
+                            });
+
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="alert alert-success">Bağlantının Durumu:<strong id="connstatus"></strong></div>
+        <div class="alert alert-info">Kategori Sayısı:<strong id="categorycount"></strong></div>
+    </div>
+</div>
