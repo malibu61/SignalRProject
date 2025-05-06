@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignalR.DataAccessLayer.Concrete;
 
@@ -11,9 +12,10 @@ using SignalR.DataAccessLayer.Concrete;
 namespace SignalR.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRContext))]
-    partial class SignalRContextModelSnapshot : ModelSnapshot
+    [Migration("20250505114505_mig5")]
+    partial class mig5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,19 +60,24 @@ namespace SignalR.DataAccessLayer.Migrations
                     b.Property<decimal>("Count")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("MenuTableID")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<int>("StoreTableID")
+                    b.Property<int?>("StoreTableID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("BasketID");
+
+                    b.HasIndex("MenuTableID");
 
                     b.HasIndex("ProductID");
 
@@ -562,21 +569,25 @@ namespace SignalR.DataAccessLayer.Migrations
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Basket", b =>
                 {
+                    b.HasOne("SignalR.EntityLayer.Entities.MenuTable", "MenuTable")
+                        .WithMany()
+                        .HasForeignKey("MenuTableID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SignalR.EntityLayer.Entities.Product", "Product")
                         .WithMany("Baskets")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SignalR.EntityLayer.Entities.StoreTable", "StoreTable")
+                    b.HasOne("SignalR.EntityLayer.Entities.StoreTable", null)
                         .WithMany("Baskets")
-                        .HasForeignKey("StoreTableID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StoreTableID");
+
+                    b.Navigation("MenuTable");
 
                     b.Navigation("Product");
-
-                    b.Navigation("StoreTable");
                 });
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.OrderDetail", b =>

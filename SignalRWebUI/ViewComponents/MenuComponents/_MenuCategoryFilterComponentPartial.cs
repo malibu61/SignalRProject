@@ -1,25 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SignalRWebUI.Dtos.SocialMediaDto;
+using SignalRWebUI.Dtos.CategoryDto;
 
-namespace SignalRWebUI.ViewComponents.UILayoutComponents
+namespace SignalRWebUI.ViewComponents.MenuComponents
 {
-    public class _UILayoutSocialMediaComponentPartial : ViewComponent
+    public class _MenuCategoryFilterComponentPartial : ViewComponent
     {
-
         private readonly IHttpClientFactory _httpClientFactory;
-        public _UILayoutSocialMediaComponentPartial(IHttpClientFactory httpClientFactory)
+
+        public _MenuCategoryFilterComponentPartial(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7277/api/SocialMedia");
+            var responseMessage = await client.GetAsync("https://localhost:7277/api/Category");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultSocialMediaDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
                 return View(values);
             }
             return View();
