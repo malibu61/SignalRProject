@@ -12,14 +12,16 @@ namespace SignalRApi.Hubs
         private readonly IOrderService _orderService;
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly IStoreTableService _storeTableService;
+        private readonly IBookingService _bookingService;
 
-        public SignalRHub(IProductService productService, ICategoryService categoryService, IOrderService orderService, IMoneyCaseService moneyCaseService, IStoreTableService storeTableService)
+        public SignalRHub(IProductService productService, ICategoryService categoryService, IOrderService orderService, IMoneyCaseService moneyCaseService, IStoreTableService storeTableService, IBookingService bookingService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _orderService = orderService;
             _moneyCaseService = moneyCaseService;
             _storeTableService = storeTableService;
+            _bookingService = bookingService;
         }
 
         SignalRContext context = new SignalRContext();
@@ -105,6 +107,13 @@ namespace SignalRApi.Hubs
 
             var value11 = _productService.TProductPriceAvgForHamburger();
             await Clients.All.SendAsync("ReceiveTotalPriceBySaladCategory", value11);
+        }
+
+
+        public async Task GetBookingList()
+        {
+            var values = _bookingService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveBookingList", values);
         }
     }
 }

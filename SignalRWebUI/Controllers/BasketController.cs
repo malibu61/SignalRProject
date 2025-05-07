@@ -26,9 +26,9 @@ namespace SignalRWebUI.Controllers
         }
         public async Task<IActionResult> DeleteBasket(int id)
         {
-            id = int.Parse(TempData["id"].ToString());
+            //id = int.Parse(TempData["id"].ToString());
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7186/api/Basket/{id}");
+            var responseMessage = await client.DeleteAsync($"https://localhost:7277/api/Basket/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
