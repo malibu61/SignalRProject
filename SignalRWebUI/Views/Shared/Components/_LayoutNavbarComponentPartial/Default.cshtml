@@ -1,15 +1,23 @@
-﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script src="~/microsoft/signalr/dist/browser/signalr.min.js"></script>
+﻿<!-- jQuery (Google CDN üzerinden) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Bundle (Bootstrap resmi CDN üzerinden) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Kendi site.js dosyan varsa yine localde -->
+<script src="/js/site.js" asp-append-version="true"></script>
+
+<!-- SignalR (Microsoft'un resmi CDN'inden) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.6/signalr.min.js"></script>
+
 
 <div class="main-header">
 
-	@* <script type="text/javascript">
+	<script type="text/javascript">
 
 		$(document).ready(() => {
 
-			var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7186/SignalRHub").build();
+	var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7277/SignalRHub").build();
 			$("#connstatus").text(connection.state);
 			connection.start().then(() => {
 				$("#connstatus").text(connection.state);
@@ -19,29 +27,29 @@
 			}).catch((err) => { console.log(err) });
 
 
-			connection.on("ReceiveNotificationCountByFalse", (value) => {
+			connection.on("ReceiveNotificationCountByStatusFalse", (value) => {
 				$("#notificationcount").text(value);
 			});
 
-			connection.on("ReceiveNotificationListByFalse", (value) => {
-				console.log(value);
-				$("#notilist").empty();
-				for (var i = 0; i < value.length;i++){
-					$("#notilist").append(`<a href="#">
-					<div class="${value[i].type}"><i class="${value[i].icon}"></i></div>
-					<div class="notif-content">
-					<span class="block">
-					${value[i].description}
-					</span>
-					<span class="time">${value[i].date}</span>
-					</div>
-					</a>
-					`)
-				};
-			});
+			// connection.on("ReceiveNotificationListByFalse", (value) => {
+			// 	console.log(value);
+			// 	$("#notilist").empty();
+			// 	for (var i = 0; i < value.length;i++){
+			// 		$("#notilist").append(`<a href="#">
+			// 		<div class="${value[i].type}"><i class="${value[i].icon}"></i></div>
+			// 		<div class="notif-content">
+			// 		<span class="block">
+			// 		${value[i].description}
+			// 		</span>
+			// 		<span class="time">${value[i].date}</span>
+			// 		</div>
+			// 		</a>
+			// 		`)
+			// 	};
+			// });
 		});
 
-	</script> *@
+	</script>
 
 	<div class="logo-header">
 		<a href="index.html" class="logo">

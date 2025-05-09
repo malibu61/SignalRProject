@@ -13,8 +13,9 @@ namespace SignalRApi.Hubs
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly IStoreTableService _storeTableService;
         private readonly IBookingService _bookingService;
+        private readonly INotificationService _notificationService;
 
-        public SignalRHub(IProductService productService, ICategoryService categoryService, IOrderService orderService, IMoneyCaseService moneyCaseService, IStoreTableService storeTableService, IBookingService bookingService)
+        public SignalRHub(IProductService productService, ICategoryService categoryService, IOrderService orderService, IMoneyCaseService moneyCaseService, IStoreTableService storeTableService, IBookingService bookingService, INotificationService notificationService)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -22,6 +23,7 @@ namespace SignalRApi.Hubs
             _moneyCaseService = moneyCaseService;
             _storeTableService = storeTableService;
             _bookingService = bookingService;
+            _notificationService = notificationService;
         }
 
         SignalRContext context = new SignalRContext();
@@ -114,6 +116,12 @@ namespace SignalRApi.Hubs
         {
             var values = _bookingService.TGetListAll();
             await Clients.All.SendAsync("ReceiveBookingList", values);
+        }
+
+        public async Task SendNotification()
+        {
+            var values = _notificationService.TNotificationCountByStatusFalse();
+            await Clients.All.SendAsync("ReceiveNotificationCountByStatusFalse", values);
         }
     }
 }
