@@ -1,0 +1,98 @@
+﻿@model List<ResultStoreTableDto>
+@{
+    ViewData["Title"] = "TableListByStatus";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<!DOCTYPE html>
+
+
+<!-- jQuery (Google CDN üzerinden) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Bundle (Bootstrap resmi CDN üzerinden) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Kendi site.js dosyan varsa yine localde -->
+<script src="/js/site.js" asp-append-version="true"></script>
+
+<!-- SignalR (Microsoft'un resmi CDN'inden) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.6/signalr.min.js"></script>
+
+<div class="content">
+    <div class="container-fluid">
+
+        <script type="text/javascript">
+            $(document).ready(() => {
+                var connection = new signalR.HubConnectionBuilder()
+                    .withUrl("https://localhost:7277/signalrhub")
+                    .build();
+
+                $("#connstatus").text(connection.state);
+
+                connection.start().then(() => {
+                    $("#connstatus").text(connection.state);
+
+                    setInterval(() => {
+                        connection.send("GetStoreTableStatus"); // sadece server'a mesaj gönder
+                    }, 1000);
+                }).catch((err) => {
+                    console.log(err);
+                });
+
+                connection.on("ReceiveStoreTableStatus", (value) => {
+                    console.log(value);
+
+                    var color = "";
+                    var tableStatus = "";
+
+                    let tablehtml = `<div class="row">`;
+
+                    $.each(value, (index, item) => {
+
+                        if(item.status==true)
+                        {
+                            tableStatus = "Masa Dolu";
+                            color = "card card-stats card-info";
+                        }
+                        else
+                        {
+                            tableStatus = "Masa Boş";
+                            color = "card card-stats card-danger";
+                        }
+
+                        tablehtml += `<div class="col-md-3">
+                                       <div class="${color}">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="icon-big text-center">
+                                                        <i class="la la-certificate"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7 d-flex align-items-center">
+                                                    <div class="numbers">
+                                                        <p class="card-category">${item.name}</p>
+                                                        <h4 class="card-title" >${tableStatus}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
+                    });
+                    tablehtml += "</div>";
+                    $("#tablestatus").html(tablehtml);//html yerine text yazmıştık
+                });
+
+            });
+
+        </script>
+
+        <h4 class="page-title">Masa Durumları Sayfası</h4>
+
+        <div id="tablestatus"></div>
+
+    </div>
+
+</div>

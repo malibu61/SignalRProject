@@ -10,16 +10,38 @@ using System.Threading.Tasks;
 
 namespace SignalR.DataAccessLayer.EntityFramework
 {
-    public class EfNotificationDal : GenericRepository<Notification>, INotificationDal
-    {
-        public EfNotificationDal(SignalRContext context) : base(context)
-        {
-        }
+	public class EfNotificationDal : GenericRepository<Notification>, INotificationDal
+	{
+		public EfNotificationDal(SignalRContext context) : base(context)
+		{
+		}
 
-        public int NotificationCountByStatusFalse()
-        {
-            var context = new SignalRContext();
-            return context.Notifications.Where(x => x.Status == false).Count();
-        }
-    }
+		public List<Notification> GelAllNotificationsByStatusFalse()
+		{
+			var context = new SignalRContext();
+			return context.Notifications.Where(x => x.Status == false).ToList();
+		}
+
+		public int NotificationCountByStatusFalse()
+		{
+			var context = new SignalRContext();
+			return context.Notifications.Where(x => x.Status == false).Count();
+		}
+
+		public void NotificationStatusChangeToFalse(int id)
+		{
+			var context = new SignalRContext();
+			var value = context.Notifications.Where(x => x.NotificationID == id).FirstOrDefault();
+			value.Status = false;
+			context.SaveChanges();
+		}
+
+		public void NotificationStatusChangeToTrue(int id)
+		{
+			var context = new SignalRContext();
+			var value = context.Notifications.Where(x => x.NotificationID == id).FirstOrDefault();
+			value.Status = true;
+			context.SaveChanges();
+		}
+	}
 }

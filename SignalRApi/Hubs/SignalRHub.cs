@@ -26,6 +26,8 @@ namespace SignalRApi.Hubs
             _notificationService = notificationService;
         }
 
+        public static int clientCount { get; set; } = 0;
+
         SignalRContext context = new SignalRContext();
         public async Task SendStatistic()
         {
@@ -122,6 +124,33 @@ namespace SignalRApi.Hubs
         {
             var values = _notificationService.TNotificationCountByStatusFalse();
             await Clients.All.SendAsync("ReceiveNotificationCountByStatusFalse", values);
+
+            var values2 = _notificationService.TGelAllNotificationsByStatusFalse();
+            await Clients.All.SendAsync("ReceiveNotificationListByFalse", values2);
+        }
+
+        public async Task GetStoreTableStatus()
+        {
+            var values = _storeTableService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveStoreTableStatus", values);
+        }
+
+        public async Task SendMessage(string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+
+        public override async Task OnConnectedAsync()
+        {
+            clientCount++;
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+            await base.OnConnectedAsync();
+        }
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            clientCount--;
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+            await base.OnDisconnectedAsync(exception);
         }
     }
 }

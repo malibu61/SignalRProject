@@ -9,43 +9,58 @@ using System.Threading.Tasks;
 
 namespace SignalR.BusinnesLayer.Concrete
 {
-    public class NotificationManager : INotificationService
-    {
-        private readonly INotificationDal _notificationDal;
+	public class NotificationManager : INotificationService
+	{
+		private readonly INotificationDal _notificationDal;
 
-        public NotificationManager(INotificationDal notificationDal)
-        {
-            _notificationDal = notificationDal;
-        }
+		public NotificationManager(INotificationDal notificationDal)
+		{
+			_notificationDal = notificationDal;
+		}
 
-        public void TAdd(Notification entity)
-        {
-            _notificationDal.Add(entity);
-        }
+		public void TAdd(Notification entity)
+		{
+			_notificationDal.Add(entity);
+		}
 
-        public void TDelete(Notification entity)
-        {
-            _notificationDal.Delete(entity);
-        }
+		public void TDelete(Notification entity)
+		{
+			_notificationDal.Delete(entity);
+		}
 
-        public Notification TGetById(int id)
-        {
-            return _notificationDal.GetById(id);
-        }
+		public List<Notification> TGelAllNotificationsByStatusFalse()
+		{
+			return _notificationDal.GelAllNotificationsByStatusFalse();
+		}
 
-        public List<Notification> TGetListAll()
-        {
-            return _notificationDal.GetListAll();
-        }
+		public Notification TGetById(int id)
+		{
+			return _notificationDal.GetById(id);
+		}
 
-        public int TNotificationCountByStatusFalse()
-        {
-            return _notificationDal.NotificationCountByStatusFalse();
-        }
+		public List<Notification> TGetListAll()
+		{
+			return _notificationDal.GetListAll();
+		}
 
-        public void TUpdate(Notification entity)
-        {
-            _notificationDal.Update(entity);
-        }
-    }
+		public int TNotificationCountByStatusFalse()
+		{
+			return _notificationDal.NotificationCountByStatusFalse();
+		}
+
+		public void TNotificationStatusChangeToFalse(int id)
+		{
+			_notificationDal.NotificationStatusChangeToFalse(id);
+		}
+
+		public void TNotificationStatusChangeToTrue(int id)
+		{
+			_notificationDal.NotificationStatusChangeToTrue(id);
+		}
+
+		public void TUpdate(Notification entity)
+		{
+			_notificationDal.Update(entity);
+		}
+	}
 }

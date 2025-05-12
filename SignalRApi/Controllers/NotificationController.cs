@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinnesLayer.Abstract;
+using SignalR.DtoLayer.NotificationDto;
 using SignalR.EntityLayer.Entities;
 
 namespace SignalRApi.Controllers
@@ -30,56 +31,58 @@ namespace SignalRApi.Controllers
             return Ok(_notificationService.TNotificationCountByStatusFalse());
         }
 
-        //[HttpGet("GetAllNotificationByFalse")]
-        //public IActionResult GetAllNotificationByFalse()
-        //{
-        //    return Ok(_notificationService.TGetAllNotificationByFalse());
-        //}
+        [HttpGet("GelAllNotificationsByStatusFalse")]
+        public IActionResult GelAllNotificationsByStatusFalse()
+        {
+            return Ok(_notificationService.TGelAllNotificationsByStatusFalse());
+        }
 
-        //[HttpPost]
-        //public IActionResult CreateNotification(CreateNotificationDto createNotificationDto)
-        //{
-        //    createNotificationDto.Status = false;
-        //    createNotificationDto.Date = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-        //    var value = _mapper.Map<Notification>(createNotificationDto);
-        //    _notificationService.TAdd(value);
-        //    return Ok("Ekleme işlemi başarıyla yapıldı");
-        //}
+        [HttpPost]
+        public IActionResult CreateNotification(CreateNotificationDto createNotificationDto)
+        {
+            createNotificationDto.Status = false;
+            createNotificationDto.Date = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            var value = _mapper.Map<Notification>(createNotificationDto);
+            _notificationService.TAdd(value);
+            return Ok("Ekleme işlemi başarıyla yapıldı");
+        }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult DeleteNotification(int id)
-        //{
-        //    var value = _notificationService.TGetByID(id);
-        //    _notificationService.TDelete(value);
-        //    return Ok("Bildirim Silindi");
-        //}
-        //[HttpGet("{id}")]
-        //public IActionResult GetNotification(int id)
-        //{
-        //    var value = _notificationService.TGetByID(id);
-        //    return Ok(_mapper.Map<GetByIdNotificationDto>(value));
-        //}
+        [HttpDelete("{id}")]
+        public IActionResult DeleteNotification(int id)
+        {
+            var value = _notificationService.TGetById(id);
+            _notificationService.TDelete(value);
+            return Ok("Bildirim Silindi");
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetNotification(int id)
+        {
+            var value = _notificationService.TGetById(id);
+            return Ok(_mapper.Map<GetByIdNotification>(value));
+        }
 
-        //[HttpPut]
-        //public IActionResult UpdateNotification(UpdateNotificationDto updateNotificationDto)
-        //{
-        //    var value = _mapper.Map<Notification>(updateNotificationDto);
-        //    _notificationService.TUpdate(value);
-        //    return Ok("Güncelleme işlemi başarıyla yapıldı");
-        //}
+        [HttpPut]
+        public IActionResult UpdateNotification(UpdateNotification updateNotificationDto)
+        {
+            var value = _mapper.Map<Notification>(updateNotificationDto);
+            _notificationService.TUpdate(value);
+            return Ok("Güncelleme işlemi başarıyla yapıldı");
+        }
 
-        //[HttpGet("NotificationStatusChangeToFalse/{id}")]
-        //public IActionResult NotificationStatusChangeToFalse(int id)
-        //{
-        //    _notificationService.TNotificationStatusChangeToFalse(id);
-        //    return Ok("Güncelleme yapıldı");
-        //}
+		[HttpGet("NotificationStatusChangeToTrue/{id}")]
+		public IActionResult NotificationStatusChangeToTrue(int id)
+		{
+			_notificationService.TNotificationStatusChangeToTrue(id);
+			return Ok("Güncelleme yapıldı");
+		}
 
-        //[HttpGet("NotificationStatusChangeToTrue/{id}")]
-        //public IActionResult NotificationStatusChangeToTrue(int id)
-        //{
-        //    _notificationService.TNotificationStatusChangeToTrue(id);
-        //    return Ok("Güncelleme yapıldı");
-        //}
+        [HttpGet("NotificationStatusChangeToFalse/{id}")]
+        public IActionResult NotificationStatusChangeToFalse(int id)
+        {
+            _notificationService.TNotificationStatusChangeToFalse(id);
+            return Ok("Güncelleme yapıldı");
+        }
+
+
     }
 }
