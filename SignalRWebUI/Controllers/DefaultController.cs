@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
+using SignalRWebUI.Dtos.MessageDto;
 
 namespace SignalRWebUI.Controllers
 {
@@ -37,7 +38,7 @@ namespace SignalRWebUI.Controllers
             return PartialView();
         }
         [HttpPost]
-        public async Task<IActionResult> SendMessage(/*CreateMessageDto*/string createMessageDto)
+        public async Task<IActionResult> SendMessage(CreateMessageDto createMessageDto)
         {
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createMessageDto);
