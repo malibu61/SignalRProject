@@ -83,34 +83,41 @@ namespace SignalRApi.Hubs
         public async Task SendProgress()
         {
             var value1 = _moneyCaseService.TTotalMoneyCaseAmount();
-            await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", value1 + " ₺");
+            await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", value1 + " ₺");//****
 
             var value2 = _orderService.TTotalActiveOrderCount();
-            await Clients.All.SendAsync("ReceiveTActiveOrderCount", value2);
+            await Clients.All.SendAsync("ReceiveTActiveOrderCount", value2);//****
 
             var value3 = _storeTableService.TEmptyTableCount() + _storeTableService.TOccupiedTableCount();
-            await Clients.All.SendAsync("ReceiveMenuTableCount", value3);
+            await Clients.All.SendAsync("ReceiveStoreTableCount", value3);//*****
 
             var value5 = _productService.TProductPriceAvg();
-            await Clients.All.SendAsync("ReceiveProductPriceAvg", value5);
+            await Clients.All.SendAsync("ReceiveProductPriceAvg", value5.ToString("0,00"));//****
 
             var value6 = _productService.TProductPriceAvgForHamburger();
-            await Clients.All.SendAsync("ReceiveAvgPriceByHamburger", value6);
+            await Clients.All.SendAsync("ReceiveAvgPriceByHamburger", value6);//****
 
             var value7 = _productService.TProductCountByCategoryNamePasta();
-            await Clients.All.SendAsync("ReceiveProductCountByCategoryNameDrink", value7);
+            await Clients.All.SendAsync("ReceiveProductCountByCategoryNamePasta", value7);//****
 
             var value8 = _orderService.TTotalOrderCount();
             await Clients.All.SendAsync("ReceiveTotalOrderCount", value8);
 
-            //var value9 = _productService.TProductPriceBySteakBurger();
-            await Clients.All.SendAsync("ReceiveProductPriceBySteakBurger", /*value9*/5);
+            var value9 = _productService.TProductCountByCategoryNameHamburger();
+            await Clients.All.SendAsync("ReceiveCountByHamurger", value9);
 
-            //var value10 = _productService.TTotalPriceByDrinkCategory();
-            await Clients.All.SendAsync("ReceiveTotalPriceByDrinkCategory", /*value10*/5);
+            var value10 = _storeTableService.TEmptyTableCount();
+            await Clients.All.SendAsync("ReceiveEmptyTableCount", value10);
 
-            var value11 = _productService.TProductPriceAvgForHamburger();
-            await Clients.All.SendAsync("ReceiveTotalPriceBySaladCategory", value11);
+            var value11 = _storeTableService.TOccupiedTableCount();
+            await Clients.All.SendAsync("ReceiveOccupiedTableCount", value11);
+
+            int empty = _storeTableService.TEmptyTableCount();
+            int occupied = _storeTableService.TOccupiedTableCount();
+
+            int total = empty + occupied;
+            double occupancyRate = total == 0 ? 0 : (double)occupied / total * 100;
+            await Clients.All.SendAsync("ReceiveOccupancyRate", occupancyRate);
         }
 
 

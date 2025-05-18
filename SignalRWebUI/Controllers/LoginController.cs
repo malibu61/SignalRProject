@@ -32,6 +32,22 @@ namespace SignalRWebUI.Controllers
 			}
 			return View();
 		}
+
+		//[HttpPost]
+		//public async Task<IActionResult> Index(LoginDto loginDto, string? returnUrl = null)
+		//{
+		//	var result = await _signInManager.PasswordSignInAsync(loginDto.Username, loginDto.Password, false, false);
+		//	if (result.Succeeded)
+		//	{
+		//		if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+		//		{
+		//			return Redirect(returnUrl); // Kullanıcının ilk gitmek istediği sayfaya dön
+		//		}
+		//		return RedirectToAction("Index", "Category"); // Yoksa Category'ye yönlendir
+		//	}
+		//	return View();
+		//}
+
 		public async Task<IActionResult> LogOut()
 		{
 			await _signInManager.SignOutAsync();

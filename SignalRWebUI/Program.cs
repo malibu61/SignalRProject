@@ -23,6 +23,12 @@ builder.Services.ConfigureApplicationCookie(opts =>
     opts.LoginPath = "/Login/Index";
 });
 
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//	.AddCookie(options =>
+//	{
+//		options.LoginPath = "/Login/Index"; // Yetkisiz kullanýcý buraya yönlenir
+//	});
+
 
 
 builder.Services.AddHttpClient();
@@ -41,6 +47,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

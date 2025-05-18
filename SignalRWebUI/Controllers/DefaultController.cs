@@ -3,9 +3,11 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using SignalRWebUI.Dtos.MessageDto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SignalRWebUI.Controllers
 {
+    [AllowAnonymous]
     public class DefaultController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
