@@ -1,8 +1,11 @@
+using FluentValidation;
 using SignalR.BusinnesLayer.Abstract;
 using SignalR.BusinnesLayer.Concrete;
+using SignalR.BusinnesLayer.ValidationRules.BookingValidations;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
 using SignalR.DataAccessLayer.EntityFramework;
+using SignalR.DtoLayer.BookingDto;
 using SignalRApi.Hubs;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -89,6 +92,9 @@ builder.Services.AddScoped<INotificationDal, EfNotificationDal>();
 
 builder.Services.AddScoped<IMessageService, MessageManager>();
 builder.Services.AddScoped<IMessageDal, EfMessageDal>();
+
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidator>();
 
 
 

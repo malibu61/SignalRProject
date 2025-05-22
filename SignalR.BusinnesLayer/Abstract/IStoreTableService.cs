@@ -11,5 +11,7 @@ namespace SignalR.BusinnesLayer.Abstract
     {
         int TOccupiedTableCount();
         int TEmptyTableCount();
+        void TChangeStatusToTrue(int id);
+        void TChangeStatusToFalse(int id);
     }
 }

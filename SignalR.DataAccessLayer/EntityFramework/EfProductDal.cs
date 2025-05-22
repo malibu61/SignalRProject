@@ -12,13 +12,22 @@ using System.Threading.Tasks;
 
 namespace SignalR.DataAccessLayer.EntityFramework
 {
-    public class EfProductDal : GenericRepository<Product>, IProductDal
+	public class EfProductDal : GenericRepository<Product>, IProductDal
     {
         public EfProductDal(SignalRContext context) : base(context)
         {
         }
 
-        public List<ResultProductWCategoryNameDto> GetProductsWithCategoryName()
+		public List<Product> GetLast9Products()
+		{
+			using (var context = new SignalRContext())
+			{
+				var values = context.Products.OrderBy(x=>x.ProductID).Take(9).ToList();
+				return values;
+			}
+		}
+
+		public List<ResultProductWCategoryNameDto> GetProductsWithCategoryName()
         {
             using (var context = new SignalRContext())
             {

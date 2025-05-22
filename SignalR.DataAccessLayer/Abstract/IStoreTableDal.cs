@@ -11,5 +11,7 @@ namespace SignalR.DataAccessLayer.Abstract
     {
         int OccupiedTableCount();
         int EmptyTableCount();
+        void ChangeStatusToFalse(int id);
+        void ChangeStatusToTrue(int id);
     }
 }

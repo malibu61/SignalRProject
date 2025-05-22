@@ -106,73 +106,11 @@ namespace SignalRApi.Controllers
             return Ok(_productService.TProductPriceAvgForHamburger());
         }
 
-        //[HttpGet("TotalPriceByDrinkCategory")]
-        //public IActionResult TotalPriceByDrinkCategory()
-        //{
-        //    return Ok(_productService.TTotalPriceByDrinkCategory());
-        //}
-
-        //[HttpGet("TotalPriceBySaladCategory")]
-        //public IActionResult TotalPriceBySaladCategory()
-        //{
-        //    return Ok(_productService.TTotalPriceBySaladCategory());
-        //}
-
-
-
-
-
-
-
-        //[HttpGet("ProductCountByHamburger")]
-        //public IActionResult ProductCountByHamburger()
-        //{
-        //    return Ok(_productService.TProductCountByCategoryNameHamburger());
-        //}
-
-        //[HttpGet("ProductCountByDrink")]
-        //public IActionResult ProductCountByDrink()
-        //{
-        //    return Ok(_productService.TProductCountByCategoryNameDrink());
-        //}
-
-        //[HttpGet("ProductPriceAvg")]
-        //public IActionResult ProductPriceAvg()
-        //{
-        //    return Ok(_productService.TProductPriceAvg());
-        //}
-
-        //[HttpGet("ProductPriceBySteakBurger")]
-        //public IActionResult ProductPriceBySteakBurger()
-        //{
-        //    return Ok(_productService.TProductPriceBySteakBurger());
-        //}
-
-
-
-        //[HttpGet("ProductListWithCategory")]
-        //public IActionResult ProductListWithCategory()
-        //{
-        //    var context = new SignalRContext();
-        //    var values = context.Products.Include(x => x.Category).Select(y => new ResultProductWithCategory
-        //    {
-        //        Description = y.Description,
-        //        ImageUrl = y.ImageUrl,
-        //        Price = y.Price,
-        //        ProductID = y.ProductID,
-        //        ProductName = y.ProductName,
-        //        ProductStatus = y.ProductStatus,
-        //        CategoryName = y.Category.CategoryName
-        //    });
-        //    return Ok(values.ToList());
-        //}
-
-
-        //[HttpGet("GetLast9Products")]
-        //public IActionResult GetLast9Products()
-        //{
-        //    var value = _productService.TGetLast9Products();
-        //    return Ok(value);
-        //}
+        [HttpGet("GetLast9Products")]
+        public IActionResult GetLast9Products()
+        {
+            var value = _productService.TGetLast9Products();
+            return Ok(value);
+        }
     }
 }

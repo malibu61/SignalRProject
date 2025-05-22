@@ -90,5 +90,19 @@ namespace SignalRApi.Controllers
 		{
 			return Ok(_storeTableService.TEmptyTableCount());
 		}
-	}
+
+		[HttpGet("ChangeStatusToFalse")]
+		public IActionResult ChangeStatusToFalse(int id)
+		{ 
+			_storeTableService.TChangeStatusToFalse(id);
+            return Ok("False'a çevirme işlemi başarılı");
+        }
+
+        [HttpGet("ChangeStatusToTrue")]
+        public IActionResult ChangeStatusToTrue(int id)
+        {
+            _storeTableService.TChangeStatusToTrue(id);
+            return Ok("True'a çevirme işlemi başarılı");
+        }
+    }
 }

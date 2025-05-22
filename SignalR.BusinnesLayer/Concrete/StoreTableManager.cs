@@ -23,6 +23,16 @@ namespace SignalR.BusinnesLayer.Concrete
             _storeTableDal.Add(entity);
         }
 
+        public void TChangeStatusToFalse(int id)
+        {
+            _storeTableDal.ChangeStatusToFalse(id);
+        }
+
+        public void TChangeStatusToTrue(int id)
+        {
+            _storeTableDal.ChangeStatusToTrue(id);
+        }
+
         public void TDelete(StoreTable entity)
         {
             _storeTableDal.Delete(entity);
