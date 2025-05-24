@@ -60,22 +60,6 @@ namespace SignalR.DataAccessLayer.EntityFramework
                 var valuesProductCount = context.Products.Where(x => x.CategoryId == valueCategory).Count();
                 return valuesProductCount;
             }
-
-            //using (var context = new SignalRContext())
-            //{
-            //    "Hamburger" isimli kategorinin ID'sini alıyoruz
-            //    var valueCategory = context.Categories
-            //                            .Where(x => x.CategoryName == "Hamburger")
-            //                            .Select(x => x.CategoryId)
-            //                            .FirstOrDefault(); // veya SingleOrDefault()
-
-            //    Bu kategoriye ait ürünleri sayıyoruz
-            //   var valuesProductCount = context.Products
-            //                             .Where(x => x.CategoryId == valueCategory)
-            //                             .Count();
-
-            //    return valuesProductCount;
-            //}
         }
 
         public int ProductCountByCategoryNamePasta()

@@ -30,9 +30,6 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             using (var context = new SignalRContext())
             {
-                //var value = context.Orders.Where(x => x.OrderDate.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd")).Sum(x=>x.TotalPrice);
-                //return value;
-
                 var today = DateTime.Today;
                 var value = context.Orders
                     .Where(x => x.OrderDate.Date == today)

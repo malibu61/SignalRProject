@@ -31,16 +31,6 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateFeature(CreateFeatureDto createFeatureDto)
         {
-            //_featureService.TAdd(new Feature()
-            //{
-            //    Description1 = createFeatureDto.Description1,
-            //    Description2 = createFeatureDto.Description2,
-            //    Description3 = createFeatureDto.Description3,
-            //    Title1 = createFeatureDto.Title1,
-            //    Title2 = createFeatureDto.Title2,
-            //    Title3 = createFeatureDto.Title3
-            //});
-
             var values = _mapper.Map<Feature>(createFeatureDto);
             _featureService.TAdd(values);
             return Ok("Özellik Bilgisi Eklendi");

@@ -121,59 +121,6 @@
 
     @await Component.InvokeAsync("_UILayoutScriptComponentPartial")
 
-   @*  <script>
-
-        // function showproductid(productId,storeTableId) {
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: "/Menu/AddBasket",
-        //         data: {
-        //            item: productId,
-        //            storeTableId=storeTableId
-        //         },
-        //         contentType:'json',
-
-        //         success: function () {
-        //             swal("Seçilen Ürün ID:" + productId, "Seçtiğiniz Ürün Sepete Eklendi!", "success");
-        //         },
-            
-        //     });
-        // };
-
-        // function showproductid(value) {
-        //     var id=value;
-        //     $.ajax({
-        //         type: 'POST',
-        //         data: {item: id},
-        //         url: "/Menu/AddBasket/"+id,
-        //         contentType:'json',
-        //         success: function () {
-        //             swal("Seçilen Ürün ID:" + id, "Seçtiğiniz Ürün Sepete Eklendi!", "success");
-        //         }
-            
-        //     });
-        };
-
-    </script> *@
-
-@* 
-    <script>
-        function showproductid(value) {
-            var id=value;
-            $.ajax({
-                type:'post',
-                data:{item:id},
-                contentType:'json',
-                success:function()
-                {
-                   
-                         swal( "Good job!"+id, "You clicked the button!","success");
-
-                }
-            });
-        }
-    </script> *@
-
     <script>
 
         function showproductid(productId, storeTableId) {
@@ -182,7 +129,7 @@
                 url: "/Menu/AddBasket",
                 data: {
                     id: productId,
-                    storeTableId: storeTableId // MenuTableId burada gönderiliyor
+                    storeTableId: storeTableId // storeTableId burada gönderiliyor
                 },
                 success: function () {
                             swal("Seçilen Ürün ID:" + productId, "Seçtiğiniz Ürün Sepete Eklendi!", "success");

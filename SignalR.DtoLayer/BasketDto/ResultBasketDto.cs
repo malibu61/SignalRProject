@@ -13,8 +13,6 @@ namespace SignalR.DtoLayer.BasketDto
         public decimal Count { get; set; }
         public decimal TotalPrice { get; set; }
         public int ProductID { get; set; }
-        //public Product Product { get; set; }
         public int MenuTableID { get; set; }
-        //public MenuTable MenuTable { get; set; }
     }
 }

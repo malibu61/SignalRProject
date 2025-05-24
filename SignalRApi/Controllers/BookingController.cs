@@ -16,12 +16,11 @@ namespace SignalRApi.Controllers
 		private readonly IMapper _mapper;
 		private readonly IValidator<CreateBookingDto> _validator;
 
-		public BookingController(IBookingService bookingService, IMapper mapper/*, IValidator<CreateBookingDto> validator*/, IValidator<CreateBookingDto> validator)
+		public BookingController(IBookingService bookingService, IMapper mapper, IValidator<CreateBookingDto> validator)
 		{
 			_bookingService = bookingService;
 			_mapper = mapper;
 			_validator = validator;
-			//_validator = validator;
 		}
 		[HttpGet]
 		public IActionResult BookingList()

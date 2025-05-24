@@ -24,15 +24,12 @@ namespace SignalRApi.Controllers
 		public IActionResult StoreTableList()
 		{
 			var values = _storeTableService.TGetListAll();
-			return Ok(/*_mapper.Map<List<ResultStoreTableDto>>(values)*/values);
+			return Ok(values);
 		}
 		[HttpPost]
 		public IActionResult CreateStoreTable(CreateStoreTableDto createStoreTableDto)
 		{
 			createStoreTableDto.Status = false;
-
-			//var values = /*_mapper.Map<StoreTable>(createStoreTableDto);*/
-
 			var values = new StoreTable()
 			{
 				Name = createStoreTableDto.Name,
@@ -53,8 +50,6 @@ namespace SignalRApi.Controllers
 		[HttpPut]
 		public IActionResult UpdateStoreTable(UpdateStoreTableDto updateStoreTableDto)
 		{
-			//var value = _mapper.Map<StoreTable>(updateStoreTableDto);
-
 			var value = new StoreTable()
 			{
 				StoreTableID = updateStoreTableDto.StoreTableID,
@@ -69,14 +64,8 @@ namespace SignalRApi.Controllers
 		public IActionResult GetStoreTable(int id)
 		{
 			var value = _storeTableService.TGetById(id);
-			return Ok(/*_mapper.Map<GetByIdStoreTableDto>*/(value));
+			return Ok(value);
 		}
-
-		//	  [HttpGet("StoreTableList")]
-		//      public IActionResult StoreTableList()
-		//      {
-		//          return Ok(_storeTableService.TGetListAll());
-		//      }
 
 		[HttpGet("OccupiedTableCount")]
 		public IActionResult OccupiedTableCount()

@@ -11,7 +11,7 @@ namespace SignalRWebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<IActionResult> Index(int id=3)
+        public async Task<IActionResult> Index(int id)
         {
             TempData["id"] = id;
             var client = _httpClientFactory.CreateClient();
@@ -26,12 +26,12 @@ namespace SignalRWebUI.Controllers
         }
         public async Task<IActionResult> DeleteBasket(int id)
         {
-            //id = int.Parse(TempData["id"].ToString());
+            int _id = int.Parse(TempData["id"].ToString());
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.DeleteAsync($"https://localhost:7277/api/Basket/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = _id });
             }
             return NoContent();
         }
