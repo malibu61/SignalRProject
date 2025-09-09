@@ -7,15 +7,25 @@ I built a real-time food ordering and booking system. It supports dynamic menu d
 
 🧰 Technologies & Tools Used:
 
+
 📡 ASP.NET Core Web API (6.0)
+
 🔄 SignalR for real-time communication
+
 📱 QR Code integration
+
 ✅ FluentValidation for backend validation
+
 🔀 AutoMapper for DTO mapping
+
 🧱 Layered Architecture (API & Web UI)
+
 🔐 Authentication & Authorization
+
 🔃 AJAX for dynamic UI updates
+
 🧯 SQL Server Trigger for stock management
+
 📋 Booking & Order Management Modules
 
 
