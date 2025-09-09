@@ -1,6 +1,5 @@
-🚀 Hello everyone!
+SignalR project focused on building a real-time ordering system using modern technologies like SignalR and QR Code integrations.
 
-I’m excited to share that I’ve completed the “ASP.NET Core Booking Management System With API & SignalR QR Code" course by Murat Yücedağ on Udemy, offered by MY YAZILIM EĞİTİM AKADEMİ DANIŞMANLIK. This hands-on training focused on building a real-time ordering system using modern technologies like SignalR and QR Code integrations. 🧾
 
 💡 Project Highlights:
 
